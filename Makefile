@@ -10,3 +10,5 @@ destroy-plan:
 	cd ./infra/ && terraform plan -destroy -out main.destroy.tfplan
 destroy-apply:
 	cd ./infra/ && terraform apply main.destroy.tfplan
+publicKeygen:
+	ssh-keygen
