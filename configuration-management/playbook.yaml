@@ -14,3 +14,9 @@
         regexp: '127.0.0.53'             
         replace: '168.63.129.16'
      become: yes
+  
+   - name: Clone from GitHub
+     git:
+        repo: 'https://github.com/lizrice/learning-ebpf.git' 
+        dest: '~/source'
+        version: 'main'
