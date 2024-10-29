@@ -20,3 +20,35 @@
         repo: 'https://github.com/lizrice/learning-ebpf.git' 
         dest: '~/source'
         version: 'main'
+
+   - name: Update apt package cache
+     apt:
+        update_cache: yes
+     become: yes 
+
+   - name: Get the current kernel version
+     command: uname -r
+     register: kernel_version
+
+    # Copied from https://github.com/lizrice/learning-ebpf/blob/main/learning-ebpf.yaml (not all are probably necessary)
+   - name: Install specific packages
+     apt:
+        name:
+          - apt-transport-https 
+          - ca-certificates
+          - curl
+          - clang
+          - llvm
+          - jq
+          - libelf-dev
+          - libpcap-dev
+          - libbfd-dev
+          - binutils-dev
+          - build-essential
+          - make
+          - linux-tools-common
+          - linux-tools-{{ kernel_version.stdout }} 
+          - bpfcc-tools
+          - python3-pip
+        state: present 
+     become: yes
