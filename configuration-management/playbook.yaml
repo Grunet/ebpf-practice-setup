@@ -1,4 +1,4 @@
-- name: My first play
+- name: Configure Host 
   hosts: myhosts
   tasks:
    - name: Ping my hosts
@@ -7,3 +7,10 @@
    - name: Print message
      ansible.builtin.debug:
        msg: Hello world
+
+   - name: Fix DNS resolution (by pointing at Azure's DNS resolver)
+     replace:
+        path: /etc/resolv.conf   
+        regexp: '127.0.0.53'             
+        replace: '168.63.129.16'
+     become: yes
