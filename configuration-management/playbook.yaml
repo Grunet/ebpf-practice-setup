@@ -24,7 +24,13 @@
    - name: Update apt package cache
      apt:
         update_cache: yes
-     become: yes 
+     become: yes
+     # This task sometimes hangs the first time it runs (wasn't able to figure out why), so this is intended to make sure it works on the 2nd try
+     register: result
+     async: 30      # Timeout
+     poll: 0        # Return immediately and check in the background
+     retries: 5     
+     until: result is succeeded  # Retry until the command exits successfully
 
    - name: Get the current kernel version
      command: uname -r
@@ -52,3 +58,9 @@
           - python3-pip
         state: present 
      become: yes
+     # This task sometimes hangs the first time it runs (wasn't able to figure out why), so this is intended to make sure it works on the 2nd try
+     register: result
+     async: 30      # Timeout
+     poll: 0        # Return immediately and check in the background
+     retries: 5     
+     until: result is succeeded  # Retry until the command exits successfully
