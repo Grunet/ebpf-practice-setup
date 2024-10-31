@@ -8,6 +8,8 @@ create-plan:
 	cd ./infra/ && terraform plan -out main.tfplan
 create-apply:
 	cd ./infra/ && terraform apply main.tfplan
+create:
+	make create-plan && make create-apply
 ssh:
 	# Overwrite what's in ~/.ssh/known-hosts every time
 	IP_ADDRESS=$$(cd ./infra/ && terraform output -raw vm_public_ip_address); \
@@ -32,3 +34,5 @@ destroy-plan:
 	cd ./infra/ && terraform plan -destroy -out main.destroy.tfplan
 destroy-apply:
 	cd ./infra/ && terraform apply main.destroy.tfplan
+destroy:
+	make destroy-plan && make destroy-apply
