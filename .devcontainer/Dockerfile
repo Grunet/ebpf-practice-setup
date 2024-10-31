@@ -14,5 +14,5 @@ RUN rm -rf ./terraform-temp/
 # Ansible
 
 RUN apt-get update
-RUN apt-get install -y python3-pip="22.0.2+dfsg-1ubuntu0.4"
+RUN apt-get install -y python3-pip="22.0.2+dfsg-1ubuntu0.5"
 RUN pip install ansible=='10.5.0'
