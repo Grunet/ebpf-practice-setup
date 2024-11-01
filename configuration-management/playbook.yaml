@@ -26,11 +26,12 @@
         update_cache: yes
      become: yes
      # This task sometimes hangs the first time it runs (wasn't able to figure out why), so this is intended to make sure it works on the 2nd try
-     register: result
-     async: 30      # Timeout
-     poll: 0        # Return immediately and check in the background
-     retries: 5     
-     until: result is succeeded  # Retry until the command exits successfully
+     # Timing out an inidivual task try and retrying it doesn't seem possible, see https://github.com/ansible/ansible-documentation/issues/881#issuecomment-1832602135
+    #  register: result
+    #  async: 30      # Timeout
+    #  poll: 5        # Interval to periodically check for completion
+    #  retries: 5     
+    #  until: result.finished != 0  # Retry until the command exits successfully
 
    - name: Get the current kernel version
      command: uname -r
@@ -59,8 +60,9 @@
         state: present 
      become: yes
      # This task sometimes hangs the first time it runs (wasn't able to figure out why), so this is intended to make sure it works on the 2nd try
-     register: result
-     async: 30      # Timeout
-     poll: 0        # Return immediately and check in the background
-     retries: 5     
-     until: result is succeeded  # Retry until the command exits successfully
+     # Timing out an inidivual task try and retrying it doesn't seem possible, see https://github.com/ansible/ansible-documentation/issues/881#issuecomment-1832602135
+    #  register: result
+    #  async: 30      # Timeout
+    #  poll: 5        # Interval to periodically check for completion
+    #  retries: 5     
+    #  until: result.finished != 0  # Retry until the command exits successfully
