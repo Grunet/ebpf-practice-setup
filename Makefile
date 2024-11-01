@@ -28,8 +28,7 @@ configure:
 	cd ./configuration-management/; \
 	# Overwrite what's in inventory.ini every time \
 	echo "[myhosts]\n$$IP_ADDRESS" > inventory.ini; \
-	# "adminuser" here is duplicated in "main.tf" \
-	ansible-playbook playbook.yaml -vv -i inventory.ini -u adminuser;
+	./run-playbook-with-timeouts-and-retries.sh
 destroy-plan:
 	cd ./infra/ && terraform plan -destroy -out main.destroy.tfplan
 destroy-apply:
